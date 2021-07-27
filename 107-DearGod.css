@@ -5,11 +5,27 @@ body {
 }
 
 .headshot {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 }
 
-#person article {
+#person {
+    position: relative;
+}
+
+article {
+    /* 用gird 20% 20% 20% 20% 20% */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: absolute;
+    top: 0;
+    left: -2000px;
+}
+
+.show {
+    position: static;
+}
+
+#intro-big {
     display: flex;
-    flex-wrap: wrap;
 }

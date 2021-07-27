@@ -7,17 +7,17 @@ window.onload = function () {
         if (request.status == 200) {/*返回状态为200，即为数据获取成功*/
             personList = JSON.parse(request.responseText);
 
-
+            // TODO: 加上 LazyLoad 增加效率
             for (let i = 0; i < personList.length; i++) {
                 group = stringToUnicode(personList[i][0].group);
-                $("#nav-group")[0].innerHTML += `<input type="button" value=${group}>`;
-                $("#person")[0].innerHTML += `<article class=${group}"></article>`
+                $("#nav-group")[0].innerHTML += `<input type="button" data-id=${i} value=${group}>`;
+                $("#person")[0].innerHTML += `<article class=${group}" data-id=${i}></article>`
                 for (let j = 0; j < personList[i].length; j++) {
                     img = personList[i][j].img;
                     name = stringToUnicode(personList[i][j].name);
                     title = stringToUnicode(personList[i][j].title)
                     $("#person > article")[i].innerHTML += `
-                    <section>
+                    <section data-id=${j}>
                         <img class="headshot" src=${img}>
                         <p class="name">${name}</p>
                         <p class="title">${title}</p>
@@ -26,7 +26,41 @@ window.onload = function () {
                 }
             }
 
+            // show 初始化
+            $("#person > article")[0].classList.add("show");
 
+            // 點擊 group 轉換組別
+            $("#nav-group > input").click(function () {
+                const gId = this.dataset.id;
+                $(".show")[0].classList.remove("show")
+                $("article")[gId].classList.add("show");
+            })
+
+
+            // 點擊頭像放大並加上說明
+            $("#person > article > section").click(function () {
+                const gId = $(".show")[0].dataset.id,
+                    pId = this.dataset.id,
+                    img = personList[gId][pId].img,
+                    name = stringToUnicode(personList[gId][pId].name),
+                    title = stringToUnicode(personList[gId][pId].title),
+                    text = stringToUnicode(personList[gId][pId].text);
+
+                // 初始化
+                $("#intro-big")[0].innerHTML = "";
+
+                // 資料放進 #intro-big
+                $("#intro-big")[0].innerHTML += `
+                <div class="intro-left">
+                    <img class="headshot" src=${img}>
+                    <p class="name">${name}</p>
+                    <p class="title">${title}</p>
+                </div>
+                <div class="intro-right">
+                    <p>${text}</p>
+                </div>
+                `
+            })
 
 
         }

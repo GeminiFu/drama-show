@@ -1,12 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* web basic */
+header {
+    padding: 20px;
+}
+
+nav {
+    padding: 20px;
+}
+
+nav > a {
+    margin: 20px;
+    text-decoration: none;
+    border: 0;
+    color: black;
+}
+
+nav > a:hover {
+    border-bottom: 1px solid blue ;
+    color: blue;
+}
+
+/* drama-show */
+#cover {
+    width: 100vw;
+    height: 50vh;
+    background: rgb(54, 54, 54);
+}
+
+/* group */
+#group-nav {
+    padding: 20px;
+    display: flex;
+}
+
+.button {
+    border: 0;
+    background: none;
+    font-size: 20px;
+    border: 1px solid transparent;
+}
+
+.button:hover {
+    border-color:black;
+}
+
+/* person */
 .headshot {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
 }
 
 #person {
@@ -14,18 +64,84 @@ body {
 }
 
 article {
-    /* 用gird 20% 20% 20% 20% 20% */
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     position: absolute;
-    top: 0;
+    top: -1000px;
     left: -2000px;
 }
 
-.show {
+section {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name, .title {
+    margin: 10px
+}
+
+.name { 
+    font-size: 25px;
+    letter-spacing: 10px;
+}
+
+.title {
+    color: red;
+}
+
+.group-show {
     position: static;
 }
 
-#intro-big {
+/* intro */
+.intro {
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.intro-left {
+    width: 400px;
+    height: 400px;
+}
+
+.intro-right {
+    background: white;
+    height: 400px;
+    padding-left: 10px;
+    overflow-y: scroll; 
+}
+
+.intro-title, .intro-name {
+    margin: 30px, 0;
+}
+
+.intro-title {  
+    /* margin-bottom: 0; */
+}
+
+.intro-name {
+    margin-top: 0;
+}
+
+.intro-text {
+    width: 500px;
+}
+
+.person-show {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* tool */
+.hide {
+    position: absolute;
+    left: -100vw;
+    top: 0;
 }

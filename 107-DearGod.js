@@ -10,8 +10,8 @@ window.onload = function () {
             // TODO: 加上 LazyLoad 增加效率
             for (let i = 0; i < personList.length; i++) {
                 group = stringToUnicode(personList[i][0].group);
-                $("#nav-group")[0].innerHTML += `<input type="button" data-id=${i} value=${group}>`;
-                $("#person")[0].innerHTML += `<article class=${group}" data-id=${i}></article>`
+                $("#group-nav")[0].innerHTML += `<input type="button" class="button" data-id=${i} value=${group}>`;
+                $("#person")[0].innerHTML += `<article class="hide" data-id=${i}></article>`
                 for (let j = 0; j < personList[i].length; j++) {
                     img = personList[i][j].img;
                     name = stringToUnicode(personList[i][j].name);
@@ -27,39 +27,50 @@ window.onload = function () {
             }
 
             // show 初始化
-            $("#person > article")[0].classList.add("show");
+            $("#person > article")[0].classList.remove("hide")
+            $("#person > article")[0].classList.add("group-show");
 
             // 點擊 group 轉換組別
-            $("#nav-group > input").click(function () {
+            $("#group-nav > input").click(function () {
                 const gId = this.dataset.id;
-                $(".show")[0].classList.remove("show")
-                $("article")[gId].classList.add("show");
+                $(".group-show")[0].classList.remove("group-show")
+                $("article")[gId].classList.remove("hide");
+                $("article")[gId].classList.add("group-show");
             })
 
 
             // 點擊頭像放大並加上說明
             $("#person > article > section").click(function () {
-                const gId = $(".show")[0].dataset.id,
+                const gId = $(".group-show")[0].dataset.id,
                     pId = this.dataset.id,
                     img = personList[gId][pId].img,
                     name = stringToUnicode(personList[gId][pId].name),
                     title = stringToUnicode(personList[gId][pId].title),
                     text = stringToUnicode(personList[gId][pId].text);
 
-                // 初始化
-                $("#intro-big")[0].innerHTML = "";
 
-                // 資料放進 #intro-big
-                $("#intro-big")[0].innerHTML += `
-                <div class="intro-left">
-                    <img class="headshot" src=${img}>
-                    <p class="name">${name}</p>
-                    <p class="title">${title}</p>
-                </div>
+                // 資料放進 .intro
+                $(".intro")[0].innerHTML += `
+                <img class="intro-left" src=${img}>
                 <div class="intro-right">
-                    <p>${text}</p>
+                    <div class="title intro-title">${title}</div>
+                    <div class="name intro-name">${name}</div>
+                    <p class="intro-text">${text}<p>
                 </div>
                 `
+
+                // 把 .intro 放進視窗
+                $(".intro")[0].classList.remove("hide");
+                $(".intro")[0].classList.add("person-show");
+
+            })
+
+            // 把 .intro 藏起來
+            $(".intro")[0].addEventListener("click", function () {
+                this.classList.remove("person-show");
+                this.classList.add("hide");
+                // 初始化
+                $(".intro")[0].innerHTML = "";
             })
 
 

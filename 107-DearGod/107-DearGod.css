@@ -10,35 +10,35 @@ body {
 
 /* web basic */
 header {
-    padding: 20px;
+    padding-block: 20px;
 }
 
 nav {
-    padding: 20px;
+    padding-block: 20px;
 }
 
 nav > a {
-    margin: 20px;
+    margin-inline: 20px;
     text-decoration: none;
     border: 0;
     color: black;
 }
 
 nav > a:hover {
-    border-bottom: 1px solid blue ;
+    border-block-end: 1px solid blue ;
     color: blue;
 }
 
 /* drama-show */
 #cover {
-    width: 100vw;
-    height: 50vh;
+    inline-size: 100vw;
+    block-size: 50vh;
     background: rgb(54, 54, 54);
 }
 
 /* group */
 #group-nav {
-    padding: 20px;
+    padding-block: 20px;
     display: flex;
 }
 
@@ -55,8 +55,8 @@ nav > a:hover {
 
 /* person */
 .headshot {
-    width: 140px;
-    height: 140px;
+    inline-size: 140px;
+    block-size: 140px;
 }
 
 #person {
@@ -65,21 +65,18 @@ nav > a:hover {
 
 article {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    position: absolute;
-    top: -1000px;
-    left: -2000px;
+    grid-template-columns: repeat(5, 1fr); 
 }
 
 section {
-    margin: 10px;
+    margin-inline: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .name, .title {
-    margin: 10px
+    margin: auto;
 }
 
 .name { 
@@ -97,8 +94,8 @@ section {
 
 /* intro */
 .intro {
-    width: 100vw;
-    height: 100vh;
+    inline-size: 100vw;
+    block-size: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,42 +103,45 @@ section {
 }
 
 .intro-left {
-    width: 400px;
-    height: 400px;
+    inline-size: 400px;
+    block-size: 400px;
 }
 
 .intro-right {
     background: white;
-    height: 400px;
-    padding-left: 10px;
-    overflow-y: scroll; 
+    block-size: 400px;
+    padding-inline-start: 10px;
+    /* overflow-y: scroll;  */
 }
 
 .intro-title, .intro-name {
-    margin: 30px, 0;
+    /* margin: 5%, 0; */
 }
 
-.intro-title {  
-    /* margin-bottom: 0; */
+.intro-title {
+    block-size: 5%;
 }
 
 .intro-name {
-    margin-top: 0;
+    block-size: 10%;
 }
 
 .intro-text {
-    width: 500px;
+    margin: 0;
+    inline-size: 500px;
+    block-size: 80%;
+    overflow-y: scroll;
 }
 
 .person-show {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
 }
 
 /* tool */
 .hide {
     position: absolute;
-    left: -100vw;
-    top: 0;
+    inset-block-start: -100vh;
+    inset-inline-start: -150vw;
 }

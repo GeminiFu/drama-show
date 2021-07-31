@@ -8,32 +8,35 @@ window.onload = function () {
             personList = JSON.parse(request.responseText);
 
             // TODO: 加上 LazyLoad 增加效率
+            // group
             for (let i = 0; i < personList.length; i++) {
-                group = stringToUnicode(personList[i][0].group);
+                const group = stringToUnicode(personList[i][0].group);
                 $("#group-nav")[0].innerHTML += `<input type="button" class="button" data-id=${i} value=${group}>`;
                 $("#person")[0].innerHTML += `<article class="hide" data-id=${i}></article>`
+                // person
                 for (let j = 0; j < personList[i].length; j++) {
-                    img = personList[i][j].img;
-                    name = stringToUnicode(personList[i][j].name);
-                    title = stringToUnicode(personList[i][j].title)
+                    const { img, name, title } = personList[i][j];
                     $("#person > article")[i].innerHTML += `
                     <section data-id=${j}>
                         <img class="headshot" src=${img}>
-                        <p class="name">${name}</p>
-                        <p class="title">${title}</p>
+                        <p class="name">${stringToUnicode(name)}</p>
+                        <p class="title">${stringToUnicode(title)}</p>
                     </section>
                     `
                 }
             }
 
-            // show 初始化
+            // group-show 初始化
             $("#person > article")[0].classList.remove("hide")
             $("#person > article")[0].classList.add("group-show");
 
             // 點擊 group 轉換組別
             $("#group-nav > input").click(function () {
                 const gId = this.dataset.id;
+                // 藏起上一個
+                $(".group-show")[0].classList.add("hide")
                 $(".group-show")[0].classList.remove("group-show")
+                // show 出點擊到的
                 $("article")[gId].classList.remove("hide");
                 $("article")[gId].classList.add("group-show");
             })
@@ -43,19 +46,15 @@ window.onload = function () {
             $("#person > article > section").click(function () {
                 const gId = $(".group-show")[0].dataset.id,
                     pId = this.dataset.id,
-                    img = personList[gId][pId].img,
-                    name = stringToUnicode(personList[gId][pId].name),
-                    title = stringToUnicode(personList[gId][pId].title),
-                    text = stringToUnicode(personList[gId][pId].text);
-
+                    { img, name, title, text } = personList[gId][pId];
 
                 // 資料放進 .intro
                 $(".intro")[0].innerHTML += `
                 <img class="intro-left" src=${img}>
                 <div class="intro-right">
-                    <div class="title intro-title">${title}</div>
-                    <div class="name intro-name">${name}</div>
-                    <p class="intro-text">${text}<p>
+                    <div class="title intro-title">${stringToUnicode(title)}</div>
+                    <div class="name intro-name">${stringToUnicode(name)}</div>
+                    <p class="intro-text">${stringToUnicode(text)}<p>
                 </div>
                 `
 
